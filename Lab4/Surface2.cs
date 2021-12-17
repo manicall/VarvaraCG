@@ -18,11 +18,6 @@ namespace Lab4
         private float exMax, exMin, eyMax, eyMin;
         private int gmex, gmey;
 
-        // Для центральной проекции
-        private float xV = 5, yV = 3.5f, zV = 3; // положение наблюдателя
-        private float d = 10;                    // расстояние до плоскости проекции
-        private float cosA, sinA;                // меридиана точки наблюдения
-
 
         // Функция z = f(x,y)
         private float fz(float x, float y)
@@ -53,9 +48,6 @@ namespace Lab4
             // Подготовка окна вывода
             hY = (yMax - yMin) / nY;
             hX = (xMax - xMin) / nX;
-
-            cosA = xV / (float)Math.Sqrt(xV * xV + yV * yV);
-            sinA = yV / (float)Math.Sqrt(xV * xV + yV * yV);
 
             exMax = ex(xMin, yMax, zMax) + 0.01f;
             exMin = ex(xMax, yMin, zMin) + 0.01f;

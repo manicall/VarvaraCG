@@ -10,10 +10,13 @@ namespace Lab3
 {
 	class Polygon1
 	{
-
 		Bitmap bitmap;
+		static int currentPolygon = 1;
+		private Point[] myPointArray = PolygonArrays.getMyPointArrays(CurrentPolygon);
 
-		public void createPolygon(PictureBox pictureBox)
+        public static int CurrentPolygon { get => currentPolygon; set => currentPolygon = value; }
+
+        public void createPolygon(PictureBox pictureBox)
 		{
 			bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
 			// Графический объект — некий холст
@@ -28,8 +31,36 @@ namespace Lab3
 		}
 		private void drawPolygon()
 		{
-			drawLine(50, 50, 100, 10);
 
+/*			switch (CurrentPolygon)
+			{
+				case 0:
+					// Многоугольник 1
+					drawLine(myPointArray[0].X, myPointArray[0].Y, myPointArray[1].X, myPointArray[1].Y);
+					drawLine(myPointArray[1].X, myPointArray[1].Y, myPointArray[2].X, myPointArray[2].Y);
+					drawLine(myPointArray[2].X, myPointArray[2].Y, myPointArray[3].X, myPointArray[3].Y);
+					drawLine(myPointArray[4].X, myPointArray[4].Y, myPointArray[3].X, myPointArray[3].Y);
+					drawLine(myPointArray[4].X, myPointArray[4].Y, myPointArray[0].X, myPointArray[0].Y);
+					break;
+				case 1:
+					// Буква "Г"
+					drawLine(myPointArray[0].X, myPointArray[0].Y, myPointArray[1].X, myPointArray[1].Y);
+					drawLine(myPointArray[1].X, myPointArray[1].Y, myPointArray[2].X, myPointArray[2].Y);
+					drawLine(myPointArray[3].X, myPointArray[3].Y, myPointArray[2].X, myPointArray[2].Y);
+					drawLine(myPointArray[3].X, myPointArray[3].Y, myPointArray[4].X, myPointArray[4].Y);
+					drawLine(myPointArray[5].X, myPointArray[5].Y, myPointArray[4].X, myPointArray[4].Y);
+					drawLine(myPointArray[0].X, myPointArray[0].Y, myPointArray[5].X, myPointArray[5].Y);
+					break;
+				case 2: // Квадрат
+				case 3: // Прямоугольник
+				case 4: // Галка
+					drawLine(myPointArray[0].X, myPointArray[0].Y, myPointArray[1].X, myPointArray[1].Y);
+					drawLine(myPointArray[1].X, myPointArray[1].Y, myPointArray[2].X, myPointArray[2].Y);
+					drawLine(myPointArray[3].X, myPointArray[3].Y, myPointArray[2].X, myPointArray[2].Y);
+					drawLine(myPointArray[0].X, myPointArray[0].Y, myPointArray[3].X, myPointArray[3].Y);
+					break;
+
+			}*/
 
 		}
 
@@ -67,6 +98,8 @@ namespace Lab3
 
 
 
+
+
 	}
-		
+
 }

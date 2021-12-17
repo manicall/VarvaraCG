@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Polygon1.cs" />
+    <Compile Include="PolygonArrays.cs" />
     <Compile Include="Polygons.cs">
       <SubType>Form</SubType>
     </Compile>
