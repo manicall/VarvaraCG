@@ -31,18 +31,18 @@ namespace Lab3
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.pbFirst = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.pbSecond = new System.Windows.Forms.PictureBox();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.pbSecond = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFirst)).BeginInit();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSecond)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSecond)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -70,6 +70,15 @@ namespace Lab3
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Первый";
             // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(8, 9);
+            this.trackBar1.Maximum = 4;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(630, 45);
+            this.trackBar1.TabIndex = 7;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
             // pbFirst
             // 
             this.pbFirst.Location = new System.Drawing.Point(0, 62);
@@ -92,24 +101,6 @@ namespace Lab3
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Второй";
             // 
-            // pbSecond
-            // 
-            this.pbSecond.Location = new System.Drawing.Point(0, 62);
-            this.pbSecond.Margin = new System.Windows.Forms.Padding(5);
-            this.pbSecond.Name = "pbSecond";
-            this.pbSecond.Size = new System.Drawing.Size(646, 440);
-            this.pbSecond.TabIndex = 5;
-            this.pbSecond.TabStop = false;
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(8, 9);
-            this.trackBar1.Maximum = 4;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(630, 45);
-            this.trackBar1.TabIndex = 7;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
-            // 
             // trackBar2
             // 
             this.trackBar2.Location = new System.Drawing.Point(8, 9);
@@ -118,6 +109,15 @@ namespace Lab3
             this.trackBar2.Size = new System.Drawing.Size(630, 45);
             this.trackBar2.TabIndex = 7;
             this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
+            // 
+            // pbSecond
+            // 
+            this.pbSecond.Location = new System.Drawing.Point(0, 62);
+            this.pbSecond.Margin = new System.Windows.Forms.Padding(5);
+            this.pbSecond.Name = "pbSecond";
+            this.pbSecond.Size = new System.Drawing.Size(646, 440);
+            this.pbSecond.TabIndex = 5;
+            this.pbSecond.TabStop = false;
             // 
             // Polygons
             // 
@@ -131,12 +131,12 @@ namespace Lab3
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFirst)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSecond)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSecond)).EndInit();
             this.ResumeLayout(false);
 
         }

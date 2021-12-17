@@ -11,12 +11,17 @@ namespace Lab3
 	class Polygon1
 	{
 		Bitmap bitmap;
-		static int currentPolygon = 1;
-		private Point[] myPointArray = PolygonArrays.getMyPointArrays(CurrentPolygon);
+		private static int currentPolygon = 0;
+		private static Point[] myPointArray = PolygonArrays.getMyPointArrays(currentPolygon);
 
-        public static int CurrentPolygon { get => currentPolygon; set => currentPolygon = value; }
+		public static void updatePointArray(int value)
+		{
+			currentPolygon = value;
+			myPointArray = PolygonArrays.getMyPointArrays(currentPolygon);
+		}
 
-        public void createPolygon(PictureBox pictureBox)
+
+		public void createPolygon(PictureBox pictureBox)
 		{
 			bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
 			// Графический объект — некий холст
@@ -29,43 +34,32 @@ namespace Lab3
 
 			pictureBox.Image = bitmap;
 		}
+
 		private void drawPolygon()
 		{
-
-/*			switch (CurrentPolygon)
+			int j = myPointArray.Length - 1;
+			for (int i = 0; i < myPointArray.Length; i++)
 			{
-				case 0:
-					// Многоугольник 1
-					drawLine(myPointArray[0].X, myPointArray[0].Y, myPointArray[1].X, myPointArray[1].Y);
-					drawLine(myPointArray[1].X, myPointArray[1].Y, myPointArray[2].X, myPointArray[2].Y);
-					drawLine(myPointArray[2].X, myPointArray[2].Y, myPointArray[3].X, myPointArray[3].Y);
-					drawLine(myPointArray[4].X, myPointArray[4].Y, myPointArray[3].X, myPointArray[3].Y);
-					drawLine(myPointArray[4].X, myPointArray[4].Y, myPointArray[0].X, myPointArray[0].Y);
-					break;
-				case 1:
-					// Буква "Г"
-					drawLine(myPointArray[0].X, myPointArray[0].Y, myPointArray[1].X, myPointArray[1].Y);
-					drawLine(myPointArray[1].X, myPointArray[1].Y, myPointArray[2].X, myPointArray[2].Y);
-					drawLine(myPointArray[3].X, myPointArray[3].Y, myPointArray[2].X, myPointArray[2].Y);
-					drawLine(myPointArray[3].X, myPointArray[3].Y, myPointArray[4].X, myPointArray[4].Y);
-					drawLine(myPointArray[5].X, myPointArray[5].Y, myPointArray[4].X, myPointArray[4].Y);
-					drawLine(myPointArray[0].X, myPointArray[0].Y, myPointArray[5].X, myPointArray[5].Y);
-					break;
-				case 2: // Квадрат
-				case 3: // Прямоугольник
-				case 4: // Галка
-					drawLine(myPointArray[0].X, myPointArray[0].Y, myPointArray[1].X, myPointArray[1].Y);
-					drawLine(myPointArray[1].X, myPointArray[1].Y, myPointArray[2].X, myPointArray[2].Y);
-					drawLine(myPointArray[3].X, myPointArray[3].Y, myPointArray[2].X, myPointArray[2].Y);
-					drawLine(myPointArray[0].X, myPointArray[0].Y, myPointArray[3].X, myPointArray[3].Y);
-					break;
+				drawLine(myPointArray[i].X, myPointArray[i].Y, myPointArray[j].X, myPointArray[j].Y);
+				j = i;
+			}
+        }
 
-			}*/
-
+		// вызывает рекурсивное заполнение
+		private void fillPolygon() {
+			recFill(Color.FromArgb(255, 255, 255, 255), Color.Red, 89, 109);
 		}
 
-		private void fillPolygon() { 
-		
+		// Простой алгоритм заполнения с затравкой с использованием рекурсии
+		void recFill(Color oldColor, Color newColor, int x, int y)
+		{
+			int step = 1;
+			if (bitmap.GetPixel(x, y) != oldColor) return;
+			bitmap.SetPixel(x, y, newColor);
+			recFill(oldColor, newColor, x - step, y);
+			recFill(oldColor, newColor, x + step, y);
+			recFill(oldColor, newColor, x, y - step);
+			recFill(oldColor, newColor, x, y + step);
 		}
 
 		// Генерация точек прямой методом приращений, использующий четыре перемещения
@@ -95,11 +89,6 @@ namespace Lab3
 			}
 			bitmap.SetPixel(x, y, Color.Black);
 		}
-
-
-
-
-
 	}
 
 }

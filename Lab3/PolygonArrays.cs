@@ -9,50 +9,53 @@ namespace Lab3
 {
 	class PolygonArrays
 	{
-        static private int scale = 4;
         static private Point[][] myPointArrays = {
-            new [] {  // Многоугольник 1
-                 new Point(400 / scale, 200 / scale),
-                 new Point(500 / scale, 250 / scale),
-                 new Point(700 / scale, 125 / scale),
-                 new Point(600 / scale, 100 / scale),
-                 new Point(450 / scale, 100 / scale)
+            new [] {
+                new Point(71, 72),
+                new Point(148, 54),
+                new Point(186, 158),
+                new Point(157, 154),
+                new Point(91, 143),
             },
-
-            new [] { // Буква "Г"
-		        new Point(400 / scale, 120 / scale),
-                new Point(600 / scale, 120 / scale),
-                new Point(600 / scale, 220 / scale),
-                new Point(500 / scale, 220 / scale),
-                new Point(500 / scale, 320 / scale),
-                new Point(400 / scale, 320 / scale),
+            new [] {
+                new Point(54, 68),
+                new Point(141, 51),
+                new Point(139, 127),
+                new Point(113, 144),
+                new Point(105, 135),
             },
-
-            new [] { // Квадрат
-                new Point(400 / scale, 200 / scale),
-                new Point(600 / scale, 200 / scale),
-                new Point(600 / scale, 400 / scale),
-                new Point(400 / scale, 400 / scale),
+            new [] {
+                new Point(56, 72),
+                new Point(79, 62),
+                new Point(134, 56),
+                new Point(149, 70),
+                new Point(119, 131),
+                new Point(60, 112),
             },
-
-            new [] { // Прямоугольник
-		        new Point(400 / scale, 200 / scale),
-                new Point(800 / scale, 200 / scale),
-                new Point(800 / scale, 400 / scale),
-                new Point(400 / scale, 400 / scale),
+            new [] {
+                new Point(62, 127),
+                new Point(71, 97),
+                new Point(88, 57),
+                new Point(141, 64),
+                new Point(149, 85),
+                new Point(137, 118),
+                new Point(122, 145),
+                new Point(93, 138),
             },
-
-            new [] { // Галка
-			    new Point(400 / scale, 120 / scale),
-                new Point(450 / scale, 140 / scale),
-                new Point(520 / scale, 115 / scale),
-                new Point(475 / scale, 200 / scale),
+            new [] {
+                new Point(51, 54),
+                new Point(99, 50),
+                new Point(122, 58),
+                new Point(145, 132),
+                new Point(89, 117),
             }
-
         };
+
 
         static public Point[] getMyPointArrays(int index) { return myPointArrays[index]; }
     }
+
+
 
 
 

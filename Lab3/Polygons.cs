@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -29,15 +30,14 @@ namespace Lab3
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            Polygon1.CurrentPolygon = trackBar1.Value;
+            Polygon1.updatePointArray(trackBar1.Value);
             polygon1.createPolygon(pbFirst);
         }
 
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
-            Polygon2.CurrentPolygon = trackBar2.Value;
+            Polygon2.updatePointArray(trackBar2.Value);
             polygon2.createPolygon(pbSecond);
         }
-
     }
 }
