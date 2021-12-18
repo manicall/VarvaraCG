@@ -25,18 +25,17 @@ namespace Lab3
 
             polygon2 = new Polygon2();
             polygon2.createPolygon(pbSecond);
-
         }
-
-        private void trackBar1_Scroll(object sender, EventArgs e)
+            
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            Polygon1.updatePointArray(trackBar1.Value);
+            Polygon1.updatePointArray(comboBox1.SelectedIndex);
             polygon1.createPolygon(pbFirst);
         }
 
-        private void trackBar2_Scroll(object sender, EventArgs e)
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Polygon2.updatePointArray(trackBar2.Value);
+            Polygon2.updatePointArray(comboBox2.SelectedIndex);
             polygon2.createPolygon(pbSecond);
         }
     }
