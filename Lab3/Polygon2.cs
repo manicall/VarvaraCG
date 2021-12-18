@@ -59,7 +59,7 @@ namespace Lab3
         }
 
 
-        // Простой алгоритм заполнения с затравкой с использованием рекурсии
+        // Построчный алгоритм заполнения с затравкой с использованием рекурсии
         void flrec(Color color, int x, int y)
         {
             int xleft = x, xright = x, yy;
@@ -82,46 +82,33 @@ namespace Lab3
             }
         }
 
-        // Генерация точек прямой методом приращений, использующий четыре перемещения
-        void drawLine(int ix0, int iy0, int ix1, int iy1)
-        {
-            int ix, iy, delta_x, delta_y, esh, sx, sy;
-            int temp, swab, i;
-            ix = ix0;
-            iy = iy0;
-            delta_x = Math.Abs(ix1 - ix0);
-            delta_y = Math.Abs(iy1 - iy0);
-            if (ix1 - ix0 >= 0) sx = 1;
-            else sx = -1;
-            if (iy1 - iy0 >= 0) sy = 1;
-            else sy = -1;
-            if (ix1 == ix0) sx = 0;
-            if (iy1 == iy0) sy = 0;
-            //Обмен значений delta_x delta_y в зависимости от угла
-            if (delta_y > delta_x)
-            {
-                temp = delta_x;
-                delta_x = delta_y;
-                delta_y = temp;
-                swab = 1;
-            }
-            else swab = 0;
-            //Инициализация Е с поправкой на половину пиксела
-            esh = 2 * delta_y - delta_x;
-            for (i = 0; i <= delta_x; i++)
-            {
-                bitmap.SetPixel(ix, iy, Color.Black);
-                if (esh >= 0)
-                {
-                    if (swab == 1) ix += sx;
-                    else iy += sy;
-                    esh = esh - 2 * delta_x;
-                }
-                if (swab == 1) iy += sy;
-                else ix += sx;
-                esh = esh + 2 * delta_y;
-            }
-        }
+		// Генерация точек прямой методом приращений, использующий четыре перемещения
+		private void drawLine(int x0, int y0, int x1, int y1)
+		{
+			int dx = Math.Abs(x1 - x0), dy = Math.Abs(y1 - y0);
+			int ex, ey;
 
-    }
+			if (x1 > x0) ex = 1; else ex = -1;
+			if (y1 > y0) ey = 1; else ey = -1;
+
+			int E = 0, x = x0, y = y0;
+
+			while ((y != y1) || (x != x1))
+			{
+				bitmap.SetPixel(x, y, Color.Black);  // перемещение, изменяющее знак
+				if (E > 0)
+				{
+					E -= dx;
+					y += ey;
+				}
+				else
+				{
+					E += dy;
+					x += ex;
+				}
+			}
+			bitmap.SetPixel(x, y, Color.Black);
+		}
+
+	}
 }

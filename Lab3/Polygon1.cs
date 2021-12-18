@@ -62,95 +62,32 @@ namespace Lab3
 			recFill(oldColor, newColor, x, y + step);
 		}
 
-		// Генерация точек прямой методом Брезенхема
+		// Генерация точек прямой методом приращений, использующий четыре перемещения
 		private void drawLine(int x0, int y0, int x1, int y1)
 		{
-			// 8-связный отрезок
-			int x = x0, y = y0;
-			int dx = x1 - x0, dy = y1 - y0;
+			int dx = Math.Abs(x1 - x0), dy = Math.Abs(y1 - y0);
+			int ex, ey;
 
-			// Значение функции
-			int delta = 0;
+			if (x1 > x0) ex = 1; else ex = -1;
+			if (y1 > y0) ey = 1; else ey = -1;
 
-			// Знаки приращений
-			int ex = Math.Sign(dx);
-			int ey = Math.Sign(dy);
+			int E = 0, x = x0, y = y0;
 
-			bitmap.SetPixel(x, y, Color.Black);
-
-			// Если dx = 0, то выводится вертикальный отрезок
-			if (dx == 0) { while (y != y1) bitmap.SetPixel(x, ++y, Color.Black); return; }
-
-			// Если dy = 0, то выводится горизонтальный отрезок
-			if (dy == 0) { while (x != x1) bitmap.SetPixel(++x, y, Color.Black); return; }
-
-			// Если abs(dx) = abs(dy):
-			if (Math.Abs(dx) == Math.Abs(dy))
+			while ((y != y1) || (x != x1))
 			{
-				while (x != x1)
+				bitmap.SetPixel(x, y, Color.Black);    // перемещение, изменяющее знак
+				if (E > 0)
 				{
-					x += ex;
+					E -= dx;
 					y += ey;
-					bitmap.SetPixel(x, y, Color.Black);
 				}
-				return;
-			}
-
-			// Основной цикл
-			while (!(x == x1 && y == y1))
-			{
-				if (delta <= 0) // если значение функции <=0
-				{
-					if (dy * ex - dx * ey > 0) // положит. перемещение
-					{
-						x += ex; y += ey;
-						delta += dy * ex - dx * ey;
-						bitmap.SetPixel(x, y, Color.Black);    // перемещение по x и y
-					}
-					// иначе перемещение по x
-					else
-					{
-						if (Math.Abs(dx) > Math.Abs(dy))
-						{
-							x += ex;
-							delta += dy * ex;
-							bitmap.SetPixel(x, y, Color.Black);
-						}
-						else    // или по y
-						{
-							y += ey;
-							delta -= dx * ey;
-							bitmap.SetPixel(x, y, Color.Black);
-						}
-					}
-				}
-				// если значение функции > 0
 				else
 				{
-					if (dy * ex - dx * ey < 0)
-					{
-						// делаем два перемещения
-						x += ex;
-						y += ey;
-						delta += dy * ex - dx * ey;
-						bitmap.SetPixel(x, y, Color.Black);
-					}
-					else
-					{
-						if (Math.Abs(dx) > Math.Abs(dy))
-						{
-							x += ex; delta += dy * ex;
-							bitmap.SetPixel(x, y, Color.Black); // или по x
-						}
-						else
-						{
-							y += ey; delta -= dx * ey;
-							bitmap.SetPixel(x, y, Color.Black); // или по y
-						}
-					}
+					E += dy;
+					x += ex;
 				}
 			}
+			bitmap.SetPixel(x, y, Color.Black);
 		}
-	}
 
-}
+	}

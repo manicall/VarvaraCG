@@ -27,7 +27,7 @@ namespace lab2
 
 		// отрисовывает оси координат
 		private void drawAxes(Bitmap bitmap, PictureBox pictureBox)
-		{ 
+		{
 			graphic = Graphics.FromImage(bitmap);                       // графический объект — некий холст
 			graphic.Clear(Color.White);
 
@@ -64,7 +64,7 @@ namespace lab2
 
 			while (2 * a * x > 1)
 			{
-				bitmap.SetPixel(x0 + x, y0 + y, Color.Black); //ставим точку с координатами (x,y)
+				setPixel(x, y); //ставим точку с координатами (x,y)
 				if (delta < 0) delta += a * (2 * x + 1); //положительное приращение
 				else
 				{ //отрицательное приращение
@@ -76,7 +76,7 @@ namespace lab2
 
 			while (y < pictureBox.Height / 2)
 			{
-				bitmap.SetPixel(x0 + x, y0 + y, Color.Black);    //ставим точку с координатами (x,y)
+				setPixel(x, y);    //ставим точку с координатами (x,y)
 				if (delta >= 0) delta += -1;    //отрицательное приращение
 				else
 				{ //положительное приращение
@@ -85,7 +85,7 @@ namespace lab2
 				}
 				y++;
 			}
-			
+
 			pictureBox.Image = bitmap;
 		}
 
@@ -101,7 +101,7 @@ namespace lab2
 
 			while (3 * a * Math.Pow(y, 2) < 1)
 			{
-				bitmap.SetPixel(x0 + x, y0 + y, Color.Black); // ставим точку с координатами (x,y)
+				setPixel(x, y); // ставим точку с координатами (x,y)
 				if (delta < 0) delta += 3 * a * (float)(Math.Pow(y, 2)) + 3 * a * y + a; // положительное приращение
 				else
 				{ // отрицательное приращение
@@ -113,7 +113,7 @@ namespace lab2
 
 			while (x < pictureBox.Width / 2)
 			{
-				bitmap.SetPixel(x0 - x, y0 + y, Color.Black);    //ставим точку с координатами (x,y)
+				setPixel(x, y);    //ставим точку с координатами (x,y)
 				if (delta >= 0) delta += -1;    //отрицательное приращение
 				else
 				{ //положительное приращение
@@ -137,17 +137,38 @@ namespace lab2
 		}
 
 		private void textBox2_TextChanged(object sender, EventArgs e)
-        {
+		{
 			try
 			{
 				float a = float.Parse(textBox2.Text);
-				if (a > 0) drawSecondGraphic(pbSecond);	
+				if (a > 0) drawSecondGraphic(pbSecond);
 			}
 			catch { }
-
-
 		}
 
+        private void trackBarSize_Scroll(object sender, EventArgs e)
+        {
+			drawFirstGraphic(pbFirst);
+			drawSecondGraphic(pbSecond);
+		}
+
+        private void trackBarInterval_Scroll(object sender, EventArgs e)
+        {
+			drawFirstGraphic(pbFirst);
+			drawSecondGraphic(pbSecond);
+		}
+
+        protected void setPixel(int x, int y)
+		{
+			int size = trackBarSize.Value;
+			int offset = trackBarInterval.Value;
+
+			graphic.FillRectangle(new SolidBrush(Color.Black),
+				x0 + offset * x,
+				y0 - offset * y,
+				size,
+				size);
+		}
 
 	}
 }
