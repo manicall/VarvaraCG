@@ -13,8 +13,8 @@ namespace Lab3
 		Bitmap bitmap;
 		private static int currentPolygon = 0;
 		private static Point[] myPointArray = PolygonArrays.getMyPointArrays(currentPolygon);
-
-		public static void updatePointArray(int value) {
+		
+        public static void updatePointArray(int value) {
             currentPolygon = value;
 			myPointArray = PolygonArrays.getMyPointArrays(currentPolygon);
 		}
@@ -44,7 +44,7 @@ namespace Lab3
 
 		private void fillPolygon()
 		{
-            flstr(Color.FromArgb(255, 255, 255, 255), Color.Cyan, 89, 109);
+            flrec(Color.FromArgb(255, 0, 0, 0), 89, 109);
 		}
 
         int deep = 0;
@@ -58,93 +58,70 @@ namespace Lab3
             sty[deep++] = b;
         }
 
-        void flstr(Color oldColor, Color newColor, int x, int y)
-        {
-            int xCurrent, xLeft, xRight;
-            int xEnter, flag, i;
-            push(x, y);
-            while (deep > 0)
-            {
-                x = stx[--deep];
-                y = sty[deep]; // pop
-                if (bitmap.GetPixel(x, y) == oldColor)
-                {
-                    bitmap.SetPixel(x, y, newColor);
-                    xCurrent = x; //сохранение текущей коорд. x
-                    x++;     //перемещение вправо
-                    while (bitmap.GetPixel(x, y) == oldColor && x <= xmax) bitmap.SetPixel(x++, y, newColor);
-                    xRight = x - 1;
-                    x = xCurrent;
-                    x--; //перемещение влево
-                    while (bitmap.GetPixel(x, y) == oldColor && x >= xmin) bitmap.SetPixel(x--, y, newColor);
-                    xLeft = x + 1;
-                    x = xCurrent;
-                    for (i = 0; i < 2; i++)
-                    {
-                        // при i=0 проверяем нижнюю, а при i=1 - верхнюю строку
-                        if (y <= ymax && y >= ymin)
-                        {
-                            x = xLeft;
-                            y += 1 - i * 2;
-                            while (x <= xRight)
-                            {
-                                flag = 0;
-                                while (bitmap.GetPixel(x, y) == oldColor && x <= xRight)
-                                {
-                                    if (flag == 0) flag = 1;
-                                    x++;
-                                }
-                                if (flag == 1)
-                                {
-                                    if (x == xRight && bitmap.GetPixel(x, y) == oldColor)
-                                    {
-                                        push(x, y);
-                                    }
-                                    else
-                                    {
-                                        push(x - 1, y);
-                                    }
-                                    flag = 0;
-                                }
 
-                                xEnter = x;
-                                while (bitmap.GetPixel(x, y) == newColor && x <= xRight) x++;
-                                if (x == xEnter) x++;
-                            }
-                        }
-                        y--;
-                    }
+        // Простой алгоритм заполнения с затравкой с использованием рекурсии
+        void flrec(Color color, int x, int y)
+        {
+            int xleft = x, xright = x, yy;
+            if (bitmap.GetPixel(x, y) == color) return;
+            if (y > ymax || y < ymin) return;
+            if (x > xmax || x < xmin) return;
+            while (bitmap.GetPixel(xleft, y) != color && xleft >= xmin)
+                bitmap.SetPixel(xleft--, y, color);
+            xright++;
+            while (bitmap.GetPixel(xright, y) != color && xright <= xmax)
+                bitmap.SetPixel(xright++, y, color);
+            for (yy = y - 1; yy <= y + 1; yy += 2)
+            {
+                x = xleft + 1;
+                while (x < xright && x < xmax)
+                {
+                    if (bitmap.GetPixel(x, yy) != color) flrec(color, x, yy);
+                    x++;
                 }
             }
         }
 
         // Генерация точек прямой методом приращений, использующий четыре перемещения
-        private void drawLine(int x0, int y0, int x1, int y1)
-		{
-			int dx = Math.Abs(x1 - x0), dy = Math.Abs(y1 - y0);
-			int ex, ey;
+        void drawLine(int ix0, int iy0, int ix1, int iy1)
+        {
+            int ix, iy, delta_x, delta_y, esh, sx, sy;
+            int temp, swab, i;
+            ix = ix0;
+            iy = iy0;
+            delta_x = Math.Abs(ix1 - ix0);
+            delta_y = Math.Abs(iy1 - iy0);
+            if (ix1 - ix0 >= 0) sx = 1;
+            else sx = -1;
+            if (iy1 - iy0 >= 0) sy = 1;
+            else sy = -1;
+            if (ix1 == ix0) sx = 0;
+            if (iy1 == iy0) sy = 0;
+            //Обмен значений delta_x delta_y в зависимости от угла
+            if (delta_y > delta_x)
+            {
+                temp = delta_x;
+                delta_x = delta_y;
+                delta_y = temp;
+                swab = 1;
+            }
+            else swab = 0;
+            //Инициализация Е с поправкой на половину пиксела
+            esh = 2 * delta_y - delta_x;
+            for (i = 0; i <= delta_x; i++)
+            {
+                bitmap.SetPixel(ix, iy, Color.Black);
+                if (esh >= 0)
+                {
+                    if (swab == 1) ix += sx;
+                    else iy += sy;
+                    esh = esh - 2 * delta_x;
+                }
+                if (swab == 1) iy += sy;
+                else ix += sx;
+                esh = esh + 2 * delta_y;
+            }
+        }
 
-			if (x1 > x0) ex = 1; else ex = -1;
-			if (y1 > y0) ey = 1; else ey = -1;
-
-			int E = 0, x = x0, y = y0;
-
-			while ((y != y1) || (x != x1))
-			{
-				bitmap.SetPixel(x, y, Color.Black);    // перемещение, изменяющее знак
-				if (E > 0)
-				{
-					E -= dx;
-					y += ey;
-				}
-				else
-				{
-					E += dy;
-					x += ex;
-				}
-			}
-			bitmap.SetPixel(x, y, Color.Black);
-		}
-
-	}
+    }
 }

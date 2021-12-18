@@ -31,17 +31,15 @@ namespace Lab3
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.pbFirst = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.pbSecond = new System.Windows.Forms.PictureBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFirst)).BeginInit();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSecond)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,7 +58,7 @@ namespace Lab3
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage1.Controls.Add(this.trackBar1);
+            this.tabPage1.Controls.Add(this.comboBox1);
             this.tabPage1.Controls.Add(this.pbFirst);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
@@ -70,28 +68,19 @@ namespace Lab3
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Первый";
             // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(8, 9);
-            this.trackBar1.Maximum = 4;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(630, 45);
-            this.trackBar1.TabIndex = 7;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
-            // 
             // pbFirst
             // 
-            this.pbFirst.Location = new System.Drawing.Point(0, 62);
+            this.pbFirst.Location = new System.Drawing.Point(0, 38);
             this.pbFirst.Margin = new System.Windows.Forms.Padding(5);
             this.pbFirst.Name = "pbFirst";
-            this.pbFirst.Size = new System.Drawing.Size(646, 440);
+            this.pbFirst.Size = new System.Drawing.Size(646, 464);
             this.pbFirst.TabIndex = 5;
             this.pbFirst.TabStop = false;
             // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage2.Controls.Add(this.trackBar2);
+            this.tabPage2.Controls.Add(this.comboBox2);
             this.tabPage2.Controls.Add(this.pbSecond);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
@@ -101,23 +90,42 @@ namespace Lab3
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Второй";
             // 
-            // trackBar2
+            // comboBox2
             // 
-            this.trackBar2.Location = new System.Drawing.Point(8, 9);
-            this.trackBar2.Maximum = 4;
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(630, 45);
-            this.trackBar2.TabIndex = 7;
-            this.trackBar2.Scroll += new System.EventHandler(this.trackBar2_Scroll);
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Первый многоугольник",
+            "Второй многоугольник",
+            "Третий многоугольник"});
+            this.comboBox2.Location = new System.Drawing.Point(10, 9);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(164, 21);
+            this.comboBox2.TabIndex = 6;
+            this.comboBox2.Text = "Первый многоугольник";
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // pbSecond
             // 
-            this.pbSecond.Location = new System.Drawing.Point(0, 62);
+            this.pbSecond.Location = new System.Drawing.Point(0, 38);
             this.pbSecond.Margin = new System.Windows.Forms.Padding(5);
             this.pbSecond.Name = "pbSecond";
-            this.pbSecond.Size = new System.Drawing.Size(646, 440);
+            this.pbSecond.Size = new System.Drawing.Size(646, 464);
             this.pbSecond.TabIndex = 5;
             this.pbSecond.TabStop = false;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Первый многоугольник",
+            "Второй многоугольник",
+            "Третий многоугольник"});
+            this.comboBox1.Location = new System.Drawing.Point(10, 9);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(164, 21);
+            this.comboBox1.TabIndex = 8;
+            this.comboBox1.Text = "Первый многоугольник";
+            this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
             // 
             // Polygons
             // 
@@ -130,12 +138,8 @@ namespace Lab3
             this.Text = "Заполнение многоугольников ";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbFirst)).EndInit();
             this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbSecond)).EndInit();
             this.ResumeLayout(false);
 
@@ -148,8 +152,8 @@ namespace Lab3
         private System.Windows.Forms.PictureBox pbFirst;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.PictureBox pbSecond;
-        private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 
